@@ -1,4 +1,5 @@
 ﻿using ContosoCookbook.Common;
+using ContosoCookbook.Data;
 
 using System;
 using System.Collections.Generic;
@@ -68,7 +69,14 @@ namespace ContosoCookbook
                         //Assume there is no state and continue
                     }
                 }
+                if (args.PreviousExecutionState == ApplicationExecutionState.Running)
+                {
+                    Window.Current.Activate();
+                    return;
+                }
 
+                // Load recipe data
+                await RecipeDataSource.LoadLocalDataAsync();
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
